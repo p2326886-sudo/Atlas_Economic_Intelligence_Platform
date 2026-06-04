@@ -1,0 +1,326 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Resets ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #F8FAFC;
+  color: #0F172A;
+  line-height: 1.6;
+}
+
+#root { min-height: 100vh; }
+
+a, button, input, select, textarea { outline-color: #1D6AE5; }
+
+:focus-visible {
+  outline: 3px solid rgba(29, 106, 229, 0.35);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 9999;
+  transform: translateY(-160%);
+  border-radius: 0.5rem;
+  background: #0A2540;
+  color: white;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+/* ─── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F1F5F9; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+/* ─── Utility Classes ──────────────────────────────────── */
+@layer components {
+
+  /* Navbar */
+  .nav-link {
+    @apply text-sm font-medium text-atlas-slate hover:text-atlas-navy transition-colors duration-200;
+  }
+  .nav-link-active {
+    @apply text-atlas-navy font-semibold;
+  }
+
+  /* Cards */
+  .atlas-card {
+    @apply bg-white border border-atlas-border rounded-lg shadow-card hover:shadow-premium transition-shadow duration-300;
+  }
+  .atlas-card-navy {
+    @apply bg-atlas-navy text-white rounded-lg shadow-premium;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 bg-atlas-navy text-white text-sm font-semibold rounded-lg hover:bg-[#0d2f52] active:scale-[0.98] transition-all duration-200 shadow-sm;
+  }
+  .btn-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 border-2 border-atlas-navy text-atlas-navy text-sm font-semibold rounded-lg hover:bg-atlas-navy hover:text-white active:scale-[0.98] transition-all duration-200;
+  }
+  .btn-outline {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-5 py-2.5 border border-atlas-border text-atlas-slate text-sm font-medium rounded-lg hover:border-atlas-navy hover:text-atlas-navy transition-all duration-200;
+  }
+  .btn-blue {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-5 py-2.5 bg-atlas-blue text-white text-sm font-semibold rounded-lg hover:bg-[#1558c5] active:scale-[0.98] transition-all duration-200;
+  }
+
+  /* Section */
+  .section-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-atlas-blue mb-3;
+  }
+  .section-title {
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-atlas-dark leading-tight tracking-tight;
+  }
+  .section-subtitle {
+    @apply text-base sm:text-lg text-atlas-slate leading-relaxed mt-4 max-w-3xl;
+  }
+
+  /* Metric Tile */
+  .metric-tile {
+    @apply atlas-card p-6;
+  }
+  .metric-value {
+    @apply text-3xl sm:text-4xl font-bold text-atlas-dark mt-1 tracking-tight;
+  }
+  .metric-label {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-atlas-slate;
+  }
+  .metric-change-up {
+    @apply text-xs font-semibold text-atlas-green flex items-center gap-1 mt-2;
+  }
+  .metric-change-down {
+    @apply text-xs font-semibold text-red-500 flex items-center gap-1 mt-2;
+  }
+
+  /* Module Card */
+  .module-card {
+    @apply atlas-card p-8 flex flex-col hover:border-atlas-blue/40 cursor-pointer group transition-all duration-300;
+  }
+  .module-card-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center mb-6 text-white font-bold text-sm;
+  }
+
+  /* Score Bar */
+  .score-bar-track {
+    @apply h-2 bg-slate-100 rounded-full overflow-hidden;
+  }
+  .score-bar-fill {
+    @apply h-full rounded-full transition-all duration-700;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 text-xs font-semibold rounded-full;
+  }
+  .badge-blue { @apply badge bg-blue-50 text-atlas-blue; }
+  .badge-green { @apply badge bg-green-50 text-atlas-green; }
+  .badge-amber { @apply badge bg-amber-50 text-amber-600; }
+  .badge-red { @apply badge bg-red-50 text-red-600; }
+  .badge-navy { @apply badge bg-atlas-navy/10 text-atlas-navy; }
+  .badge-slate { @apply badge bg-slate-100 text-atlas-slate; }
+
+  /* Table */
+  .atlas-table {
+    @apply w-full min-w-[720px] text-sm;
+  }
+  .atlas-table th {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-atlas-slate bg-atlas-light border-b border-atlas-border;
+  }
+  .atlas-table td {
+    @apply px-4 py-4 text-atlas-dark border-b border-atlas-border;
+  }
+  .atlas-table tr:hover td {
+    @apply bg-slate-50;
+  }
+  .atlas-table tr:last-child td { @apply border-0; }
+
+  /* Data Panel */
+  .data-panel {
+    @apply atlas-card p-6;
+  }
+  .data-panel-header {
+    @apply flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6;
+  }
+  .data-panel-title {
+    @apply text-base font-semibold text-atlas-dark;
+  }
+
+  /* Divider */
+  .atlas-divider {
+    @apply border-t border-atlas-border;
+  }
+
+  /* Accent bar (left border indicator) */
+  .accent-bar {
+    @apply pl-4 border-l-4;
+  }
+  .accent-bar-blue { @apply accent-bar border-atlas-blue; }
+  .accent-bar-green { @apply accent-bar border-atlas-green; }
+  .accent-bar-amber { @apply accent-bar border-atlas-amber; }
+  .accent-bar-navy { @apply accent-bar border-atlas-navy; }
+
+  /* Hero gradient overlay */
+  .hero-grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(10,37,64,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(10,37,64,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Ticker animation */
+  .ticker-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex;
+    animation: ticker 40s linear infinite;
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Risk badge colors */
+  .risk-critical { @apply badge bg-red-50 text-red-700; }
+  .risk-elevated { @apply badge bg-amber-50 text-amber-700; }
+  .risk-managed { @apply badge bg-green-50 text-green-700; }
+  .risk-improving { @apply badge bg-blue-50 text-atlas-blue; }
+  .risk-constrained { @apply badge bg-orange-50 text-orange-700; }
+
+  /* Page hero */
+  .page-hero {
+    @apply bg-atlas-navy text-white py-20 px-6;
+  }
+
+  /* Sidebar nav */
+  .sidebar-link {
+    @apply flex items-center gap-2 px-3 py-2 text-sm font-medium text-atlas-slate rounded-lg hover:bg-atlas-light hover:text-atlas-navy transition-all duration-200;
+  }
+  .sidebar-link-active {
+    @apply flex items-center gap-2 px-3 py-2 text-sm font-semibold text-atlas-navy bg-blue-50 rounded-lg;
+  }
+}
+
+.atlas-card:has(.atlas-table) {
+  overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+  .ticker-inner { animation-duration: 60s; }
+  .recharts-wrapper text { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ─── Recharts overrides ───────────────────────────────── */
+.recharts-tooltip-wrapper { outline: none; }
+.recharts-default-tooltip {
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 24px -2px rgba(10,37,64,0.12) !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* ─── Print styles ─────────────────────────────────────── */
+/* ─── Print styles ─────────────────────────────────────── */
+@media print {
+  header, footer, nav, button, a, .print\:hidden, .btn-primary, .btn-secondary {
+    display: none !important;
+  }
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 11pt !important;
+  }
+  #main-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #boardroom-brief-print, #research-report-print {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  body:has(#boardroom-brief-print) #main-content {
+    display: none !important;
+  }
+  section, .atlas-card, tr, .p-4 {
+    page-break-inside: avoid !important;
+  }
+}
+
+/* ─── AEIOS Operating System Extras ────────────────────── */
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+svg path[stroke-dasharray] {
+  animation: flowDash 1.2s linear infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.glow-blue {
+  box-shadow: 0 0 15px rgba(29, 106, 229, 0.4);
+}
+.glow-green {
+  box-shadow: 0 0 15px rgba(0, 168, 107, 0.4);
+}
+.glow-amber {
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+.glow-red {
+  box-shadow: 0 0 15px rgba(229, 62, 62, 0.4);
+}
+
